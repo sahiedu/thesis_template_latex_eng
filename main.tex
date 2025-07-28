@@ -1,0 +1,61 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Thesis Template Based on the Legrand Orange Book
+%
+% Author: Eduardo Salazar Hidalgo
+% Email: sal.hid.edu@gmail.com
+%
+% This template is a modified version of the "Legrand Orange Book" LaTeX template,
+% originally created by Mathias Legrand and later modified by Vel.
+% Original available at: http://www.LaTeXTemplates.com
+%
+% License: Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+%          (CC BY-NC-SA 3.0)
+%          https://creativecommons.org/licenses/by-nc-sa/3.0/
+%
+% You are free to share and adapt the material under the following terms:
+% - Attribution must be given to the original authors.
+% - Non-commercial use only.
+% - Derivative works must be distributed under the same license.
+%
+% This customized version has been adapted for academic thesis writing.
+% It includes support for modular chapters, custom front matter,
+% extended bibliography handling, and formatting tailored to institutional guidelines.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[letter, 12pt, notitlepage, twoside]{book} % Default font size
+\input{structure}
+
+%----------------------------------------------------------------------------------------
+%	MAIN DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+	\include{title_page}
+	\include{dedication}
+	\include{acknowledgments}
+	\include{abstract}
+\frontmatter	
+	\tableofcontents % Print the table of contents itself
+	\listoffigures
+	\listoftables
+\mainmatter
+	\include{chapter1} 	% add hyperref
+	\include{chapter2} 	% equations targeted to my field
+	\include{chapter3} 	% add environments for exercises and solutions
+	\include{chapter4}
+	\include{chapter5}	% add environments for python, matlab, and c++ code
+
+% - improve title page
+% - include aknwoledgments, ..
+% - align format of figures and tables indexes to main contents
+% - take control of white pages, add legend "this page was intentionally left in blank"
+% - chage references format
+
+\backmatter
+	\include{references}
+	%add \include{Appendix}
+
+\end{document}
+%----------------------------------------------------------------------------------------
+%
+%----------------------------------------------------------------------------------------

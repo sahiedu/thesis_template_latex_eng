@@ -1,0 +1,99 @@
+\chapter{Figures and Tables}
+
+\section{Figures}\index{Figure}
+
+Supported formats include: `.png', `.jpg', `.jpeg', `.pdf', and `.eps' (depending on the compiler). It is recommended to use `.pdf' for vector images and `.png' for raster graphics.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\linewidth]{image}
+	
+	\caption{A sample figure with a caption.}
+	\label{fig:sample_figure}
+\end{figure}
+
+Refer to Figure~\ref{fig:sample_figure} to cite a full figure in your text.
+
+
+\begin{figure}[H]
+	\centering
+	\subfloat[Left image\label{fig:left_img}]{
+		\includegraphics[width=0.3\linewidth]{a}
+	}
+	\quad
+	\subfloat[Right image\label{fig:right_img}]{
+		\includegraphics[width=0.3\linewidth]{b}
+	}
+	
+	\caption{Two images displayed side by side.}
+	\label{fig:side_by_side}
+\end{figure}
+
+Refer to subfigures individually as Figures~\ref{fig:left_img} and~\ref{fig:right_img}, or collectively as Figure~\ref{fig:side_by_side}.
+
+
+\begin{figure}[H]
+	\centering
+	\subfloat[Image 1 caption\label{fig:image1}]{
+		\includegraphics[width=0.3\linewidth]{a}
+	}
+	\quad
+	\subfloat[Image 2 caption\label{fig:image2}]{
+		\includegraphics[width=0.3\linewidth]{b}
+	}
+	
+	\qquad
+	
+	\subfloat[Image 3 caption\label{fig:image3}]{
+		\includegraphics[width=0.3\linewidth]{c}
+	}
+	\quad
+	\subfloat[Image 4 caption\label{fig:image4}]{
+		\includegraphics[width=0.3\linewidth]{d}
+	}
+	
+	\caption{Comparison of four different images.}
+	\label{fig:four_images}
+\end{figure}
+
+You can reference subfigures individually, such as Figure~\ref{fig:image2}, or the full group using Figure~\ref{fig:four_images}.
+
+
+%------------------------------------------------
+
+\section{Tables}\index{Tables}
+
+\begin{table}[H]
+	\centering
+	\caption{Experimental results for each treatment.}
+	\begin{tabular}{c S[table-format=1.7] S[table-format=1.3]}
+		\toprule
+		\textbf{Treatment} & {\textbf{Response 1}} & {\textbf{Response 2}} \\
+		\midrule
+		Treatment 1 & 0.0003262 & 0.562 \\
+		Treatment 2 & 0.0015681 & 0.910 \\
+		Treatment 3 & 0.0009271 & 0.296 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:treatment_responses}
+\end{table}
+
+
+
+\begin{table}[H]
+	\caption{Sample parameters with corresponding physical units.}
+	\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} c l S[table-format=2.2] l }
+		\toprule
+		\textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Units} \\
+		\midrule
+		$A$ & Sample parameter A & 12.50 & \si{\meter} \\
+		$B$ & Sample parameter B & 3.14 & \si{\kilogram} \\
+		$C$ & Sample parameter C & -0.98 & \si{\second} \\
+		\bottomrule
+	\end{tabular*}
+	\label{tab:sample_parameters}
+\end{table}
+
+
+This is an example of referencing a table using its assigned label. As shown in Table~\ref{tab:sample_parameters}.
+
