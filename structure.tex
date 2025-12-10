@@ -30,7 +30,6 @@
 \setlist{nolistsep} % Reduce spacing between bullet points and numbered lists
 \usepackage{booktabs} % Required for nicer horizontal rules in tables
 \usepackage{xcolor} % Required for specifying colors by name
-\definecolor{primarycolor}{RGB}{0,0,255} % Define the color used for highlighting throughout the book
 \usepackage[Lenny]{fncychap}
 \usepackage{xpatch}
 \usepackage{comment}
@@ -38,6 +37,37 @@
 \usepackage{subfig}
 \usepackage{siunitx}
 \usepackage{emptypage}
+\usepackage{listings}
+\usepackage[listings, breakable, skins, fitting]{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{alertmessage} 
+
+%----------------------------------------------------------------------------------------
+%	COLORS
+%----------------------------------------------------------------------------------------
+\definecolor{primarycolor}{RGB}{0,0,255} % Define the color used for highlighting throughout the book
+\definecolor{lightcyan}{RGB}{240,255,255}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{blue}{RGB}{0,0,255}
+\definecolor{green}{RGB}{0,153,0}
+\definecolor{gray}{RGB}{128,128,128}
+\definecolor{purple}{RGB}{148,0,209}
+\definecolor{lightyellow}{RGB}{255,255,222}
+\definecolor{brown}{RGB}{128,0,0}
+
+\definecolor{cppcolor}{RGB}{1, 87, 161}      % 
+\definecolor{cppkeyword}{RGB}{0,0,180}      % blue
+\definecolor{cppcomment}{RGB}{0,128,0}      % dark green
+\definecolor{cppstring}{RGB}{163,21,21}     % dark red
+\definecolor{cppidentifier}{RGB}{0,0,0}     % black
+\definecolor{cppbackground}{RGB}{250,250,250} % light gray
+
+\definecolor{arduinocolor}{RGB}{0,109,110}      % 
+\definecolor{arduinokeyword}{RGB}{0,153,161}
+\definecolor{arduinocomment}{RGB}{146,164,166}
+\definecolor{arduinostring}{RGB}{2,120,145}
+\definecolor{arduinoidentifier}{RGB}{220,85,29} 
+\definecolor{arduinodirective}{RGB}{110,143,33} 
 
 
 %----------------------------------------------------------------------------------------
@@ -104,7 +134,7 @@
 
 % List of figures
 \titlecontents{figure}[0em]
-{\addvspace{-5pt}\sffamily}
+{\addvspace{0pt}\sffamily}
 {\thecontentslabel\hspace*{1em}}
 {}
 {\ \titlerule*[.5pc]{.}\;\thecontentspage}
@@ -112,7 +142,7 @@
 
 % List of tables
 \titlecontents{table}[0em]
-{\addvspace{-5pt}\sffamily}
+{\addvspace{0pt}\sffamily}
 {\thecontentslabel\hspace*{1em}}
 {}
 {\ \titlerule*[.5pc]{.}\;\thecontentspage}
@@ -427,11 +457,11 @@ innerbottommargin=5pt]{cBox}
 \ChNumVar{\fontsize{100}{25}\color{primarycolor}\usefont{OT1}{ptm}{m}{n}\selectfont} % 1
 \ChTitleVar{\fontsize{20}{20}\sffamily\selectfont} % "Text Chapter"
 
-% fix frame color
+% Fix frame color for fncychap using xpatch (robust)
 % https://tex.stackexchange.com/questions/405297/glenn-fncychap-color-of-the-box
-\xpatchcmd\DOCH
-{\mghrulefill}{\color{black}\mghrulefill}
-{}{\PatchFailed}
+\xpatchcmd{\DOCH}{\mghrulefill}{\color{black}\mghrulefill}%
+{\typeout{fncychap frame-color patched}}%
+{\typeout{Warning: fncychap patch failed; continuing without patch}}
 
 
 %----------------------------------------------------------------------------------------
@@ -439,7 +469,7 @@ innerbottommargin=5pt]{cBox}
 %----------------------------------------------------------------------------------------
 
 \usepackage{hyperref}
-\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor= primarycolor,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor=primarycolor,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 \usepackage{bookmark}
 \bookmarksetup{
 open,
@@ -452,4 +482,147 @@ addtohook={%
 \bookmarksetup{color=primarycolor,bold}%
 \fi
 }
+}
+
+
+%----------------------------------------------------------------------------------------
+%	DEFINE CUSTOM FOOTNOTE
+%----------------------------------------------------------------------------------------
+
+
+\newcommand{\awesomefootnote}[1]{%
+	\footnote{\faLink~\href{#1}{#1}}%
+}
+
+
+
+%----------------------------------------------------------------------------------------
+%	C++ CODE STYLE DEFINITION
+%----------------------------------------------------------------------------------------
+\lstdefinestyle{cppstyle}{
+	language=C++,							% Use C++ syntax highlighting
+	basicstyle=\ttfamily\scriptsize,    	% Base font for code
+	upquote=true,                      		% Straight quotes instead of curly ones
+	columns=fixed,                     		% Monospace alignment
+	keepspaces=true,                      	% Keep spaces in code
+	extendedchars=false,                   	% Avoid problems with non-ASCII chars
+	%----------------------------------------------------------------------------
+	backgroundcolor=\color{cppbackground},        	% Background color of code block
+	rulecolor=\color{white},             	% Border color of frame
+	keywordstyle=\color{cppkeyword}\bfseries,     % Keywords style
+	morekeywords={cin, cout, rclcpp},              	% Add custom keywords
+	identifierstyle=\color{cppidentifier},        	% Identifiers (variable names)
+	stringstyle=\color{cppstring},            	% String literal style
+	commentstyle=\scriptsize\color{cppcomment}\itshape, % Comments style
+	directivestyle=\color{red},           	% Preprocessor directives (#include)
+%	emph={rclcpp},          		% Words to emphasize
+	emphstyle=\color{cyan}\bfseries,      	% Emphasis style
+	%----------------------------------------------------------------------------
+	frame=single,                    		% Frame around code (single-line border)
+	breaklines=true,                      	% Auto line breaking
+	breakatwhitespace=false,               	% Break long text anywhere, not just spaces
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow}},% Symbol at line break
+	%----------------------------------------------------------------------------	
+	tabsize=1,                         		% Tab width
+	showstringspaces=false,                	% Show spaces inside strings
+	showspaces=false,                     	% Visualize spaces
+	showtabs=false,                     	% Visualize tabs
+%	texcl=true,                      		% Allow LaTeX code inside comments (%)	
+	%----------------------------------------------------------------------------	
+	numbers=left,                      		% Line numbers on the left side
+	numberstyle=\scriptsize\color{gray}, 	% Style of line numbers
+	firstnumber=1,                         	% Starting line number
+	numbersep=7pt,                       	% Separation between numbers and code
+	%----------------------------------------------------------------------------	
+    captionpos=b,                         	% Caption position: bottom
+}
+
+
+\newtcbinputlisting[auto counter]{\cppFileListing}[2]{
+	listing file={#1}, 					% Path to the source code file
+	title={C++~~Program Listing \thetcbcounter: #2}, % Title with auto counter and custom text
+	listing only,						% Display only the code listing (no extra text)
+	%%% --- Common tcolorbox settings --- 
+	breakable,							% Allows the box to split across pages
+	width=\linewidth,					% Box width equals text width
+	colback=white,						% Background color of the box
+	colframe=cppcolor,						% Border color of the box
+	boxrule=0.75pt,						% Thickness of the border line
+	sharp corners,						% No rounded corners
+	left=5mm, right=2mm, 				% Inner horizontal padding
+	top=0mm, bottom=-1mm,				% Inner vertical padding
+	listing options={style=cppstyle}, 	% Apply predefined listings style
+}
+
+
+\newtcblisting{cppInlineListing}[0]{
+	listing only,						% Display only the code listing (no extra text)
+	%%% --- Common tcolorbox settings --- 
+	breakable,							% Allows the box to split across pages
+	width=\linewidth,					% Box width equals text width
+	colback=white,						% Background color of the box
+	colframe=gray,						% Border color of the box
+	boxrule=0.75pt,						% Thickness of the border line
+	sharp corners,						% No rounded corners
+	left=5mm, right=2mm, 				% Inner horizontal padding
+	top=0mm, bottom=-1mm,				% Inner vertical padding
+	listing options={style=cppstyle},	% Apply predefined listings style
+}
+
+
+%----------------------------------------------------------------------------------------
+%	ARDUINO CODE STYLE DEFINITION
+%----------------------------------------------------------------------------------------
+\lstdefinestyle{arduinostyle}{
+	language=C++,							% Use C++ syntax highlighting
+	basicstyle=\ttfamily\scriptsize,    	% Base font for code
+	upquote=true,                      		% Straight quotes instead of curly ones
+	columns=fixed,                     		% Monospace alignment
+	keepspaces=true,                      	% Keep spaces in code
+	extendedchars=false,                   	% Avoid problems with non-ASCII chars
+	%----------------------------------------------------------------------------
+	backgroundcolor=\color{cppbackground},        	% Background color of code block
+	rulecolor=\color{white},             	% Border color of frame
+	keywordstyle=\color{arduinokeyword}\bfseries,     % Keywords style
+%	morekeywords={cin, cout, rclcpp},              	% Add custom keywords
+	identifierstyle=\color{arduinoidentifier},        	% Identifiers (variable names)
+	stringstyle=\color{arduinostring},            	% String literal style
+	commentstyle=\scriptsize\color{arduinocomment}\itshape, % Comments style
+	directivestyle=\color{arduinodirective},           	% Preprocessor directives (#include)
+	%	emph={rclcpp},          		% Words to emphasize
+	emphstyle=\color{cyan}\bfseries,      	% Emphasis style
+	%----------------------------------------------------------------------------
+	frame=single,                    		% Frame around code (single-line border)
+	breaklines=true,                      	% Auto line breaking
+	breakatwhitespace=false,               	% Break long text anywhere, not just spaces
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow}},% Symbol at line break
+	%----------------------------------------------------------------------------	
+	tabsize=1,                         		% Tab width
+	showstringspaces=false,                	% Show spaces inside strings
+	showspaces=false,                     	% Visualize spaces
+	showtabs=false,                     	% Visualize tabs
+	%	texcl=true,                      		% Allow LaTeX code inside comments (%)	
+	%----------------------------------------------------------------------------	
+	numbers=left,                      		% Line numbers on the left side
+	numberstyle=\scriptsize\color{gray}, 	% Style of line numbers
+	firstnumber=1,                         	% Starting line number
+	numbersep=7pt,                       	% Separation between numbers and code
+	%----------------------------------------------------------------------------	
+	captionpos=b,                         	% Caption position: bottom
+}
+
+\newtcbinputlisting[auto counter]{\arduinoFileListing}[2]{
+	listing file={#1}, 					% Path to the source code file
+	title={\faMicrochip~~Program Listing \thetcbcounter: #2}, % Title with auto counter and custom text
+	listing only,						% Display only the code listing (no extra text)
+	%%% --- Common tcolorbox settings --- 
+	breakable,							% Allows the box to split across pages
+	width=\linewidth,					% Box width equals text width
+	colback=white,						% Background color of the box
+	colframe=arduinocolor,						% Border color of the box
+	boxrule=0.75pt,						% Thickness of the border line
+	sharp corners,						% No rounded corners
+	left=5mm, right=2mm, 				% Inner horizontal padding
+	top=0mm, bottom=-1mm,				% Inner vertical padding
+	listing options={style=arduinostyle}, 	% Apply predefined listings style
 }

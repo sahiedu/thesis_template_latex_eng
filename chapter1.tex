@@ -18,12 +18,21 @@ This is an inline quote: ``This is quoted.''
 	This is a block quote. It's often used for long quoted passages, interviews, or highlighted text.
 \end{quote}
 
+%------------------------------------------------
+\section{Footnotes}
+This is a footnote\footnote{Footnote example...}.
+
+%------------------------------------------------
+
+\section{Hyperlinks}\index{hyperlinks}
+We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html}, but instead of choosing the \textbf{Desktop Install} option, we select the \textbf{ROS-Base Install}  
+
 
 %------------------------------------------------
 
 \section{Lists}\index{Lists}
 
-Lists are useful to present information in a concise and/or ordered way\footnote{Footnote example...}.
+
 
 \subsection{Numbered List}\index{Lists!Numbered List}
 
@@ -59,7 +68,18 @@ Lists are useful to present information in a concise and/or ordered way\footnote
 	\item The third item
 \end{itemize}
 
+\subsection{Fontawesome Lists}\index{Lists!Font Awesome}
 
+\begin{itemize}
+	\item[\footnotesize\faRobot] The first item
+	\item[\footnotesize\faRobot] The second item
+	\begin{itemize}
+		\item[\footnotesize\faMicrochip] Sub-item one
+		\item[\footnotesize\faMicrochip] Sub-item two
+	\end{itemize}
+	\item[\footnotesize\faRobot] The third item
+	
+\end{itemize}
 
 
 \subsection{Descriptions and Definitions}\index{Lists!Descriptions and Definitions}
