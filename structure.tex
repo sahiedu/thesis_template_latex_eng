@@ -86,7 +86,7 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{csquotes}
-\usepackage[style=numeric,citestyle=numeric,sorting=nyt,sortcites=true,autopunct=true,autolang=hyphen,hyperref=true,abbreviate=false,backref=false,backend=biber,defernumbers=true]{biblatex}
+\usepackage[style=numeric,citestyle=numeric,sorting=none,sortcites=true,autopunct=true,autolang=hyphen,hyperref=true,abbreviate=false,backref=false,backend=biber,defernumbers=true]{biblatex}
 \addbibresource{bibliography.bib} % BibTeX bibliography file
 \defbibheading{bibempty}{}
 
@@ -219,6 +219,21 @@
 \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
 \renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
 
+
+% (custom, only for solution environment ) Boxed/framed environments
+\newtheoremstyle{graynumbox}% % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{gray}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{gray}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+	\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+
+
 \newtheoremstyle{blacknumex}% Theorem style name
 {5pt}% Space above
 {5pt}% Space below
@@ -255,21 +270,34 @@
 \renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
 \makeatother
 
+
+
+
 % Defines the theorem text style for each type of theorem to one of the three styles above
 \newcounter{dummy} 
 \numberwithin{dummy}{section}
+
 \theoremstyle{primarycolornumbox}
 \newtheorem{theoremeT}[dummy]{Theorem}
 \newtheorem{problem}{Problem}[chapter]
 \newtheorem{exerciseT}{Exercise}[chapter]
+
+\theoremstyle{graynumbox}
+\newtheorem{solutionT}{Solution}[chapter]
+
 \theoremstyle{blacknumex}
 \newtheorem{exampleT}{Example}[chapter]
+
 \theoremstyle{blacknumbox}
 \newtheorem{vocabulary}{Vocabulary}[chapter]
 \newtheorem{definitionT}{Definition}[section]
 \newtheorem{corollaryT}[dummy]{Corollary}
+
 \theoremstyle{primarycolornum}
 \newtheorem{proposition}[dummy]{Proposition}
+
+
+
 
 %----------------------------------------------------------------------------------------
 %	DEFINITION OF COLORED BOXES
@@ -296,7 +324,7 @@ rightline=false,
 leftline=true,
 topline=false,
 bottomline=false,
-backgroundcolor=primarycolor!10,
+%backgroundcolor=primarycolor!10,
 linecolor=primarycolor,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
@@ -304,7 +332,23 @@ innertopmargin=5pt,
 innerbottommargin=5pt,
 leftmargin=0cm,
 rightmargin=0cm,
-linewidth=4pt]{eBox}	
+linewidth=4pt]{eBox}
+
+% Solution box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+leftline=true,
+rightline=false,
+topline=false,
+bottomline=false,
+linecolor=gray,
+%backgroundcolor=black!5,
+linewidth=4pt,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+innerbottommargin=5pt
+]{sBox}	
 
 % Definition box
 \newmdenv[skipabove=7pt,
@@ -339,9 +383,13 @@ rightmargin=0cm,
 linewidth=4pt,
 innerbottommargin=5pt]{cBox}
 
+
+
+
 % Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
 \newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
-\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{primarycolor}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				  
+\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{primarycolor}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}
+\newenvironment{solution}{\begin{sBox}\begin{solutionT}}{\hfill{\color{gray}\tiny\ensuremath{\blacksquare}}\end{solutionT}\end{sBox}}			  
 \newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
 \newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
 \newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
@@ -469,7 +517,18 @@ innerbottommargin=5pt]{cBox}
 %----------------------------------------------------------------------------------------
 
 \usepackage{hyperref}
-\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor=primarycolor,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{
+			hidelinks,
+			colorlinks=false,
+%			linkcolor=black,
+%			urlcolor=primarycolor,
+%			citecolor=primarycolor,
+			breaklinks=true,
+			bookmarksopen=false,
+			pdftitle={Title},
+			pdfauthor={Author},
+}
+
 \usepackage{bookmark}
 \bookmarksetup{
 open,
@@ -488,12 +547,17 @@ addtohook={%
 %----------------------------------------------------------------------------------------
 %	DEFINE CUSTOM FOOTNOTE
 %----------------------------------------------------------------------------------------
-
-
 \newcommand{\awesomefootnote}[1]{%
-	\footnote{\faLink~\href{#1}{#1}}%
+	\footnote{\faLink~\url{#1}}%
 }
 
+
+%----------------------------------------------------------------------------------------
+%	BASH STYLE DEFINITION
+%----------------------------------------------------------------------------------------
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\fvset{breaklines=true, breakanywhere=true}
 
 
 %----------------------------------------------------------------------------------------

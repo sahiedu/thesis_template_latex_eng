@@ -13,3 +13,25 @@
 \alerterror{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris.}
 
 
+
+
+\newpage
+%------------------------------------------------
+\section{Linux Shell Terminal}\index{Shell}
+
+
+Inline bash style \verb|C:\Windows\system32|
+
+\begin{Verbatim}
+$ locale  # check for UTF-8
+
+$ sudo apt update && sudo apt install locales
+$ sudo locale-gen en_US en_US.UTF-8
+$ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+$ export LANG=en_US.UTF-8
+
+$ curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
+
+$ ~/home/python/
+$ 'a' "b"
+\end{Verbatim}

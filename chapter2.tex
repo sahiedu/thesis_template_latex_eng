@@ -96,3 +96,69 @@ The Pythagorean theorem is expressed as $a^2 + b^2 = c^2$.
 
 As shown in Equation~\ref{eq:newton}, force is proportional to mass and acceleration.
 
+
+%------------------------------------------------
+\section{2 DOF Robot Arm Dynamic Model}
+
+El modelo dinámico de un robot manipulador de $n$ grados de libertad está dado por la siguiente expresión:
+
+\begin{equation}
+	M(\mathbf{q})\ddot{\mathbf{q}} + C(\mathbf{q}, \dot{\mathbf{q}})\dot{\mathbf{q}} + \mathbf{g}(\mathbf{q}) = \mathbf{\tau}
+\end{equation}
+
+Específicamente para un robot manipulador de dos grados de libertad se tiene:
+
+\begin{equation}
+	\begin{bmatrix}
+		M_{11}(\mathbf{q}) & M_{12}(\mathbf{q})\\
+		M_{21}(\mathbf{q}) & M_{22}(\mathbf{q})\\
+	\end{bmatrix}\ddot{\mathbf{q}} 
+	+
+	\begin{bmatrix}
+		C_{11}(\mathbf{q}, \dot{\mathbf{q}}) & C_{12}(\mathbf{q}, \dot{\mathbf{q}})\\
+		C_{21}(\mathbf{q}, \dot{\mathbf{q}}) & C_{22}(\mathbf{q}, \dot{\mathbf{q}})\\
+	\end{bmatrix}\dot{\mathbf{q}}
+	+
+	\begin{bmatrix}
+		g_{1}(\mathbf{q})\\
+		g_{2}(\mathbf{q})\\
+	\end{bmatrix}
+	=
+	\mathbf{\tau},
+\end{equation}
+
+Donde:
+
+\begin{equation}
+	\begin{aligned}
+		M_{11}(\mathbf{q}) &= m_{1}l_{c1}^{2} + m_{2}\left[l_{1}^{2} + l_{c2}^{2} + 2l_{1}l_{c2}\cos(q_{2}) \right]  + I_{1} + I_{2}\\
+		M_{12}(\mathbf{q}) &= m_{2}\left[l_{c2}^{2} + l_{1}l_{c2}\cos(q_{2})\right] + I_{2}\\
+		M_{21}(\mathbf{q}) &= m_{2}\left[l_{c2}^{2} + l_{1}l_{c2}\cos(q_{2})\right] + I_{2}\\
+		M_{22}(\mathbf{q}) &= m_{2}l_{c2}^{2} + I_{2}\\
+		\\
+		C_{11}(\mathbf{q}, \dot{\mathbf{q}}) &= -m_{2}l_{1}l_{c2}\sin(q_{2})\dot{q}_{2}\\
+		C_{12}(\mathbf{q}, \dot{\mathbf{q}}) &= -m_{2}l_{1}l_{c2}\sin(q_{2})\left[\dot{q}_{1} +\dot{q}_{2}\right] \\
+		C_{21}(\mathbf{q}, \dot{\mathbf{q}}) &= m_{2}l_{1}l_{c2}\sin(q_{2})\dot{q}_{1}\\
+		C_{22}(\mathbf{q}, \dot{\mathbf{q}}) &= 0\\
+		\\
+		g_{1}(\mathbf{q}) &= \left[m_{1}l_{c1} + m_{2}l_{1}\right]g\sin(q_{1}) + m_{2}l_{c2}g\sin(q_{1}+q_{2}) \\
+		g_{2}(\mathbf{q}) &= m_{2}l_{c2}g\sin(q_{1}+q_{2}).\\
+	\end{aligned}
+\end{equation}
+
+Considerando a $\mathbf{q}=[q_{1}, q_{2}]^{\top}$ y $\dot{\mathbf{q}}=[\dot{q}_{1}, \dot{q}_{2}]^{\top}$ como variables de estado, el modelo dinámico del robot se puede reescribir de la siguiente forma: 
+
+\begin{equation}
+	\frac{d}{dt}
+	\begin{bmatrix}
+		\mathbf{q}\\
+		\\
+		\dot{\mathbf{q}}\\
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\dot{\mathbf{q}}\\
+		\\
+		M(\mathbf{q})^{-1}\left[\mathbf{\tau} - C(\mathbf{q}, \dot{\mathbf{q}})\dot{\mathbf{q}} - \mathbf{g}(\mathbf{q})\right] 
+	\end{bmatrix}
+\end{equation}

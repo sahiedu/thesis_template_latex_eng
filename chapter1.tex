@@ -12,7 +12,7 @@
 
 %------------------------------------------------
 \section{Quotations}
-This is an inline quote: ``This is quoted.''
+This is an inline quote: \enquote{This is quoted.}
 
 \begin{quote}
 	This is a block quote. It's often used for long quoted passages, interviews, or highlighted text.
@@ -20,12 +20,24 @@ This is an inline quote: ``This is quoted.''
 
 %------------------------------------------------
 \section{Footnotes}
-This is a footnote\footnote{Footnote example...}.
+Footnotes are useful for adding clarifications, additional references, or brief comments without interrupting the main flow of the text.\footnote{Footnotes should be used sparingly in academic writing and should not contain essential information.}
 
 %------------------------------------------------
 
 \section{Hyperlinks}\index{hyperlinks}
-We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html}, but instead of choosing the \textbf{Desktop Install} option, we select the \textbf{ROS-Base Install}  
+Hyperlinks are used to reference online documentation, datasets, software repositories, or official standards. Whenever possible, links should be embedded in descriptive text rather than shown as raw URLs.
+
+\subsection{General Example}
+Comprehensive documentation and tutorials are available on the official \LaTeX\ project website
+(\href{https://www.latex-project.org}{LaTeX Project Website}). In cases where the address itself is relevant, a full URL may be displayed explicitly:
+\url{https://ctan.org}
+
+
+\subsection{Technical Documentation Example}
+We follow the installation steps provided in\awesomefootnote{https://www.latex-project.org/get/}, selecting a minimal \LaTeX{} distribution instead of a full installation.
+
+
+
 
 
 %------------------------------------------------
@@ -35,6 +47,9 @@ We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/In
 
 
 \subsection{Numbered List}\index{Lists!Numbered List}
+
+Numbered lists are useful when the order of items is important or when describing step-by-step procedures.
+
 
 \begin{enumerate}
 	\item The first item
@@ -54,6 +69,9 @@ We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/In
 
 \subsection{Bullet Points}\index{Lists!Bullet Points}
 
+Bullet point lists are appropriate for unordered items where sequence does not matter.
+
+
 \begin{itemize}
 	\item The first item
 	\item The second item
@@ -68,7 +86,11 @@ We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/In
 	\item The third item
 \end{itemize}
 
+
+\newpage
 \subsection{Fontawesome Lists}\index{Lists!Font Awesome}
+
+Custom symbols, such as Font Awesome icons, can be used to visually distinguish list items or emphasize specific categories.
 
 \begin{itemize}
 	\item[\footnotesize\faRobot] The first item
@@ -84,6 +106,9 @@ We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/In
 
 \subsection{Descriptions and Definitions}\index{Lists!Descriptions and Definitions}
 
+Description lists are used to associate terms or labels with brief explanations or definitions.
+
+
 \begin{description}
 	\item[Name] Description
 	\item[Word] Definition
@@ -92,11 +117,19 @@ We follow the steps provided in\awesomefootnote{https://docs.ros.org/en/jazzy/In
 
 
 
+
+
+
 %------------------------------------------------
 
 \section{Citation}\index{Citation}
 
-This statement requires citation \cite{Etkin1996, Stevens2016}; this one is more specific \cite{Sonneveldt2007}.
+
+\begin{itemize}
+	\item Papers: \cite{Sonneveldt2007}, \cite{Snell1992}, \cite{Bugajski1992}.
+	\item Books: \cite{Etkin1996}, \cite{Stevens2016}, \cite{Isidori1995}, \cite{Stengel2004}.
+	\item Thesis: \cite{Harkegard2001}, \cite{Harkegard2003}.
+\end{itemize}
 
 
 
